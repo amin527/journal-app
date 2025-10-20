@@ -1,0 +1,42 @@
+.chat-area{
+    background-color: cyan;
+    width: 80%;
+    position: relative;
+}
+
+.home-page .input-field-container{
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: 7%;
+    background-color: red;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.home-page .input-field-container .input-field{
+    width: 95%;
+    border: 0;
+    height: 100%;
+    padding: 0;
+}
+
+.home-page .input-field-container .button{
+    height: 100%;
+    width: 5%;
+    border: 0;
+    background-color: black;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.home-page .input-field-container .button:hover{
+    background-color: white;
+    color: black;
+    border: 0px black solid;
+    border-left-width: 1px;
+}

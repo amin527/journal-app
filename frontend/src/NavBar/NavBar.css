@@ -1,0 +1,58 @@
+.nav-bar{
+    display: flex;
+    background-color: gray;
+    position: relative;
+    padding: 20px 0px;
+    height: 7%;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.nav-bar #home-page.button  {
+    display: inline-block;
+    background-color: white;
+    padding: 5px 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nav-bar #home-page.button:hover {
+    display: inline-block;
+    background-color: black;
+    color: white;
+}
+
+.nav-bar #home-page.title {
+    display: inline-block;
+    margin-left: 49%;
+    line-height: 2;
+    font-size: large;
+}
+
+.nav-bar #sign-in-page.button {
+    display: inline-block;
+    background-color: white;
+    padding: 5px 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nav-bar #sign-in-page.button:hover {
+    display: inline-block;
+    background-color: black;
+    color: white;
+}
+.nav-bar #sign-in-page.title {
+    display: inline-block;
+    margin-right: 49%;
+    line-height: 2;
+    font-size: large;
+}

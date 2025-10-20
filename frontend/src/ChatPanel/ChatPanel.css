@@ -1,0 +1,6 @@
+.chat-panel{
+    display: inline-block;
+    background-color: blue;
+    width: 20%;
+    height: 100%;
+}
