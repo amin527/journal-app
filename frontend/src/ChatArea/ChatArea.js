@@ -1,8 +1,12 @@
 import "./ChatArea.css"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 function ChatArea(){
     let [draftMessage, setDraftMessage] = useState("")
+    
+    useEffect(() => {
+        // fetch("locahost:8000/api/v1/demo-controller")
+    }, [])
 
     return(
         <div className="chat-area">

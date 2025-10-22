@@ -1,6 +1,8 @@
 package com.example.backend.configurations;
 
 import com.example.backend.services.JwtService;
+
+import io.micrometer.common.lang.NonNullApi;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +24,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(
@@ -33,6 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String username;
+        System.out.println(authHeader);
         // if the authHeader is populated and does not follow the bearer scheme
         if (authHeader != null && !authHeader.startsWith("Bearer ")) {
             // pass the request to the next filter in the security chain

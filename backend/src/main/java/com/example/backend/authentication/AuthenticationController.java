@@ -14,7 +14,7 @@ import com.example.backend.repositories.UserRepository;
 
 @Controller
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+// @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
