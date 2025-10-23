@@ -1,0 +1,48 @@
+.sign-up{
+    height: 100vh;
+}
+
+.sign-up .body {
+    display: flex;
+    height: 93%;
+    background-color: orange;
+    align-items: center;
+}
+
+.sign-up .input-field-container {
+    display: flex;
+    flex-direction: column;
+    background-color: purple;
+    padding: 20px;
+    width: 20%;
+    margin: auto;
+    border-radius: 12px;
+}
+
+.sign-up .input-field{
+    border: 0px;
+    padding: 0px;
+    height: 30px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.sign-up .title{
+    font-size: larger;
+}
+
+.sign-up .input-field-container .button {
+    margin-top: 15px;
+    background-color: blue;
+    cursor: pointer;
+    text-align: center;
+    padding: 7px 0;
+    border-radius: 7px;
+    box-sizing: border-box;
+    color: white;
+}
+.sign-up .input-field-container .button:hover {
+    margin-top: 15px;
+    background-color: white;
+    color: black;
+}

@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.backend.repositories.UserRepository;
+import com.example.backend.requests.AuthenticationRequest;
+import com.example.backend.requests.RegistrationRequest;
+import com.example.backend.responses.AuthenticationResponse;
 
 @Controller
 @RequestMapping("/auth")
-// @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class AuthenticationController {
 

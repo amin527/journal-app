@@ -1,6 +1,46 @@
 .chat-panel{
     display: inline-block;
-    background-color: blue;
+    background-color: rgb(209, 209, 209);
     width: 20%;
     height: 100%;
+}
+
+.new-journal-container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.new-journal-container .button{
+    background-color: white;
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 10px;
+}
+
+.new-journal-container .button:hover{
+    background-color: rgb(204, 204, 204);
+}
+
+.new-journal-container .input-field{
+    box-sizing: border-box;
+    width: 80%;
+    margin-left: 10px;
+}
+
+.journal-name{
+    padding: 15px 10px;
+    border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.journal-name.inactive:hover{
+    background-color: rgb(119, 119, 119);
+}
+
+.journal-name.active{
+    background-color: black;
+    color: white;
 }
