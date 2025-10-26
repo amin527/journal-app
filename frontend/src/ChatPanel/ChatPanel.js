@@ -5,6 +5,7 @@ import { useContext, useState } from "react"
 import Journal from "./Journal"
 
 function ChatPanel() {
+    const API_URL = process.env.REACT_APP_API_URL;
     const { setJournals, journals } = useContext(JournalsContext)
     const { setActiveJournal, activeJournal } = useContext(ActiveJournalContext)
     const [newJounralName, setNewJournalName] = useState("")
@@ -13,7 +14,7 @@ function ChatPanel() {
     async function handleClick() {
         if (!(newJounralName === "")) {
             setIsErrorActive(false)
-            const response = await fetch("http://localhost:8080/add-journal", {
+            const response = await fetch(`${API_URL}/add-journal`, {
                 method: "Post",
                 body: JSON.stringify({ journalName: newJounralName }),
                 headers: {

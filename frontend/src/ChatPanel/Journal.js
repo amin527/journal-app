@@ -8,7 +8,7 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 function Journal(props) {
     const journalName = props.journalName
     const journalId = props.journalId
-
+    const API_URL = process.env.REACT_APP_API_URL;
     const { setActiveJournal } = useContext(ActiveJournalContext)
     const { setJournals, journals } = useContext(JournalsContext)
     const { entries, setEntries } = useContext(EntriesContext)
@@ -28,7 +28,7 @@ function Journal(props) {
     useClickOutside(menu, setMenu, menuRef, journalRef)
 
     async function deleteHandler() {
-        const response = await fetch("http://localhost:8080/delete-journal", {
+        const response = await fetch(`${API_URL}/delete-journal`, {
             method: "Post",
             body: JSON.stringify({ id: journalId }),
             headers: {
@@ -46,7 +46,7 @@ function Journal(props) {
     }
 
     async function editHandler() {
-        const response = await fetch("http://localhost:8080/edit-journal", {
+        const response = await fetch(`${API_URL}/edit-journal`, {
             method: "Post",
             body: JSON.stringify({ id: journalId, newValue: newJournalName }),
             headers: {

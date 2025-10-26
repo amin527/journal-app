@@ -20,7 +20,8 @@ function JournalEntry(props) {
     const buttonRef = useRef(null)
     const menuRef = useRef(null);
     const textareaRef = useRef(null);
-
+    const API_URL = process.env.REACT_APP_API_URL;
+    
     useClickOutside(menu, setMenu, menuRef, buttonRef)
     useEffect(() => {
         if (textareaRef.current !== null) {
@@ -43,7 +44,7 @@ function handleClick(event) {
 }
 
 async function deleteHandler() {
-    const response = await fetch("http://localhost:8080/delete-entry", {
+    const response = await fetch(`${API_URL}/delete-entry`, {
         method: "Post",
         body: JSON.stringify({ id: journalEntry.id }),
         headers: {
@@ -61,7 +62,7 @@ async function deleteHandler() {
 
 async function editHandler() {
     if (newEntry !== "") {
-        const response = await fetch("http://localhost:8080/edit-entry", {
+        const response = await fetch(`${API_URL}/edit-entry`, {
             method: "Post",
             body: JSON.stringify({ id: journalEntry.id, newValue: newEntry }),
             headers: {

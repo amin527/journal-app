@@ -12,6 +12,7 @@ function ChatArea() {
     const messagesRef = useRef(null)
     const textareaRef = useRef(null)
     const buttonRef = useRef(null)
+    const API_URL = process.env.REACT_APP_API_URL;
     
     useEffect(() => {
         if (textareaRef.current !== null) {
@@ -24,7 +25,7 @@ function ChatArea() {
 
     async function handleClick() {
         if (!(draftMessage === "") && !(activeJournal === -1)) {
-            const response = await fetch("http://localhost:8080/add-entry", {
+            const response = await fetch(`${API_URL}/add-entry`, {
                 method: "Post",
                 body: JSON.stringify({
                     message: draftMessage,
