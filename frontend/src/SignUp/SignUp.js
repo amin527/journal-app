@@ -48,7 +48,7 @@ function SignUp() {
             <div className="body">
                 <div className="input-field-container">
                     <div className="title">Sign Up</div>
-                    {!(error == null) && <div>{error}</div>}
+                    {!(error == null) && <div className="error">{error}</div>}
                     <input id="email" className="input-field" type="text" placeholder="Email" onChange={(event) => setEmail(event.target.value)} />
                     <input id="password" className="input-field" type="text" placeholder="Password" onChange={(event) => setPassword(event.target.value)} />
                     <div className="button" onClick={handleClick}>Submit</div>

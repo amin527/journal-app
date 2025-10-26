@@ -2,10 +2,16 @@
 .home-page .home-content-container {
     display: flex;
     flex-direction: row;
-    height: 93%;
+    height: 91%;
     box-sizing: border-box;
 }
 
 .home-page{
     height: 100vh;
+    background-color: var(--background-color);
+}
+
+.home-warning-message{
+    margin-top: 20px;
+    text-align: center;
 }

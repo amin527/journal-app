@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router"
+import "./App.css"
 import HomePage from "./HomePage/HomePage";
 import SignIn from "./SignIn/SignIn";
 import SignUp from "./SignUp/SignUp";
 import { useState, useEffect, createContext } from "react";
 
 export const AuthorisationContext = createContext()
-export const JournalContext = createContext()
-export const EntryContext = createContext()
+export const JournalsContext = createContext()
+export const EntriesContext = createContext()
 
 function App() {
   let [isAuthorised, setIsAuthorised] = useState(false)
@@ -28,26 +29,33 @@ function App() {
           const payload = await response.json();
           if (!(payload.username == null)) {
             setIsAuthorised(true)
+          } 
+          if(!(payload.journals == null)){
+            setJournals(payload.journals)
           }
+          if(!(payload.entries == null)){
+            setEntries(payload.entries.sort((a, b) => a - b))
+          }
+          console.log(payload)
         }
       } catch (error) {
         console.error(error)
-      }
+      }   
     }
     fetchUserInfo()
-  })
+  }, [isAuthorised])
 
   return (
     <AuthorisationContext.Provider value={{ isAuthorised, setIsAuthorised, journals, setJournals }}>
-      <JournalContext.Provider value={{ journals, setJournals }}>
-        <EntryContext.Provider value={{ entries, setEntries }}>
+      <JournalsContext.Provider value={{ journals, setJournals }}>
+        <EntriesContext.Provider value={{ entries, setEntries }}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
           </Routes>
-        </EntryContext.Provider>
-      </JournalContext.Provider>
+        </EntriesContext.Provider>
+      </JournalsContext.Provider>
     </AuthorisationContext.Provider>
   );
 }

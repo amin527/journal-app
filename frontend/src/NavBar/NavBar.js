@@ -15,7 +15,7 @@ function NavBar(props) {
         <div className="nav-bar">
             {props.location === "home" &&
                 <>
-                    <div id="home-page" className="title">Title</div>
+                    <div id="home-page" className="title">My Diary</div>
                     {!isAuthorised && <NavLink to="/sign-in" id="home-page" className="button">Sign In</NavLink>}
                     {isAuthorised && <div id="home-page" className="button" onClick={handleLogOut}>Log Out</div>}
                 </>
@@ -23,7 +23,7 @@ function NavBar(props) {
             {props.location === "sign-in" &&
                 <>
                     <NavLink id="sign-in-page" to="/" className="button">Home</NavLink>
-                    <div id="sign-in-page" className="title">Title</div>
+                    <div id="sign-in-page" className="title">My Diary</div>
                 </>
             }
         </div>

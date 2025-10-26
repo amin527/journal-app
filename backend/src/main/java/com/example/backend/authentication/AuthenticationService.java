@@ -41,8 +41,6 @@ public class AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){
         // pass the provided username and password to the Authentication provider configured within the AuthenticationManager
-        System.out.println(request.getUsername());
-        System.out.println(request.getPassword());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),

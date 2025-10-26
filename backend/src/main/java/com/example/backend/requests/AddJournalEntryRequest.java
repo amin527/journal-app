@@ -1,5 +1,6 @@
 package com.example.backend.requests;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewJournalEntryRequest {
-    private String journal_entry;
-    private String journal_title; 
+public class AddJournalEntryRequest {
+    private String message;
+    private LocalDateTime timestamp;
+    private Long journalId;
+    private Long userId;
 }

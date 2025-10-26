@@ -1,0 +1,66 @@
+.journal-container {
+    padding: 15px 3%;
+    border-bottom: 1px solid rgb(0, 0, 0);
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+}
+.journal-container.inactive:hover {
+    background-color: var(--accent-color);
+}
+
+.journal-container.active {
+    background-color: black;
+    color: white;
+}
+
+/* input field */
+.journal-container .input-field-container{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+.journal-container .input-field{
+    box-sizing: border-box;
+    width: 79%;
+}
+.journal-container .button{
+    background-color: var(--accent-color);
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 3%;
+    color: rgb(29, 29, 29);
+    font-weight: bold;
+    text-align: center;
+}
+.journal-container .button:hover{
+    background-color: black;
+    color: white;
+}
+
+
+/* context menu */
+.chat-panel .context-menu {
+    position: absolute;
+    background-color: rgb(214, 214, 214);
+    padding: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    border-radius: 3px;
+    text-align: left;
+}
+.chat-panel .context-menu .menu-action {
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+}
+.chat-panel .context-menu .menu-action-name {
+    margin-left:10px;
+}
+.chat-panel .context-menu .menu-action:hover {
+    background-color: gray;
+}
+

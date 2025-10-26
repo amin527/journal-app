@@ -1,5 +1,7 @@
 package com.example.backend.domains;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,8 +19,9 @@ public class Journal {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String title;
-    @ManyToOne (cascade = CascadeType.ALL)
+    private String name;
+    private LocalDateTime timestamp;
+    @ManyToOne
     @JoinColumn(name="user_id")
     private User user; 
 }

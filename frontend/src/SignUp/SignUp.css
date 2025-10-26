@@ -4,42 +4,50 @@
 
 .sign-up .body {
     display: flex;
-    height: 93%;
-    background-color: orange;
+    height: 91%;
+    background-color: var(--background-color);
     align-items: center;
 }
 
 .sign-up .input-field-container {
     display: flex;
     flex-direction: column;
-    background-color: purple;
+    background-color: var(--accent-color);
     padding: 20px;
     width: 20%;
     margin: auto;
     border-radius: 12px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
 }
 
 .sign-up .input-field{
     border: 0px;
-    padding: 0px;
+    padding: 5px 10px;
     height: 30px;
-    margin-top: 20px;
+    margin-top: 15px;
     border-radius: 5px;
 }
 
-.sign-up .title{
-    font-size: larger;
+.sign-up .title {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+.sign-up .error{
+    margin-top: 10px;
+    color: rgb(34, 34, 34);
 }
 
 .sign-up .input-field-container .button {
     margin-top: 15px;
-    background-color: blue;
+    background-color: black;
     cursor: pointer;
     text-align: center;
     padding: 7px 0;
     border-radius: 7px;
     box-sizing: border-box;
     color: white;
+    text-decoration: none;
+    font-weight: bold;
 }
 .sign-up .input-field-container .button:hover {
     margin-top: 15px;

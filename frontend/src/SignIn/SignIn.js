@@ -1,6 +1,6 @@
 import "./SignIn.css"
 import NavBar from "../NavBar/NavBar"
-import { useState, useEffect, useContext } from "react"
+import { useState, useContext } from "react"
 import { NavLink, useNavigate } from "react-router";
 import { AuthorisationContext } from "../App";
 
@@ -10,10 +10,6 @@ function SignIn() {
     let [error, setError] = useState(null)
     let navigate = useNavigate()
     const { setIsAuthorised } = useContext(AuthorisationContext)
-
-    useEffect(() => {
-        console.log(error)
-    }, [error])
 
     function handleClick() {
         const options = {
@@ -33,7 +29,6 @@ function SignIn() {
                 return response.json();
             })
             .then(data => {
-                console.log(data)
                 localStorage.setItem('token', data.token);
                 setIsAuthorised(true)
                 navigate("/")
@@ -47,11 +42,11 @@ function SignIn() {
             <div className="body">
                 <div className="input-field-container">
                     <div className="title">Sign In</div>
-                    {!(error == null) && <div>{error}</div>}
+                    {!(error == null) && <div className="error">{error}</div>}
                     <input id="email" className="input-field" type="text" placeholder="Email" onChange={(event) => setEmail(event.target.value)} />
                     <input id="password" className="input-field" type="text" placeholder="Password" onChange={(event) => setPassword(event.target.value)} />
                     <div className="button-container">
-                        <NavLink to="/sign-up" id="nav-link" className="button">Create Account</NavLink>
+                        <NavLink to="/sign-up" id="nav-link" className="button">Create Account ?</NavLink>
                         <div className="button" onClick={handleClick}>Submit</div>
                     </div>
                 </div>

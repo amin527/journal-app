@@ -1,45 +1,58 @@
 import "./ChatPanel.css"
-import { JournalContext } from "../App"
+import { JournalsContext } from "../App"
 import { ActiveJournalContext } from "../HomePage/HomePage"
-import { useContext, useState, useEffect } from "react"
+import { useContext, useState } from "react"
+import Journal from "./Journal"
 
 function ChatPanel() {
-    const { setJournals, journals } = useContext(JournalContext)
+    const { setJournals, journals } = useContext(JournalsContext)
     const { setActiveJournal, activeJournal } = useContext(ActiveJournalContext)
     const [newJounralName, setNewJournalName] = useState("")
+    const [isErrorActive, setIsErrorActive] = useState(false)
 
-    useEffect(() => {
-        console.log("Active Journal: " + activeJournal)
-        console.log("journals: " + journals)
-    })
+    async function handleClick() {
+        if (!(newJounralName === "")) {
+            setIsErrorActive(false)
+            const response = await fetch("http://localhost:8080/add-journal", {
+                method: "Post",
+                body: JSON.stringify({ journalName: newJounralName }),
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                }
+            }).catch(response => { console.error(response) })
+            const payload = await response.json()
+            console.log(payload)
 
-    function handleClick() {
-        if (!(newJounralName == "")) {
-            let HIGHEST_JOURNAL_ID
-            HIGHEST_JOURNAL_ID = journals.length === 0 ? 0 : Math.max(...journals.map(item => item.id));
-            const NEW_JOURNAL_ID = HIGHEST_JOURNAL_ID + 1
-            setJournals([...journals, { id: NEW_JOURNAL_ID, name: newJounralName }])
+            setJournals([...journals, { id: payload.journalId, name: newJounralName, timestamp: payload.timestamp }])
             setNewJournalName("")
-            setActiveJournal(NEW_JOURNAL_ID)
+            setActiveJournal(payload.journalId)
+        } else {
+            setIsErrorActive(true)
         }
     }
 
     return (
         <div className="chat-panel">
             <div className="new-journal-container">
-                <input
-                    className="input-field"
-                    type="text"
-                    value={newJounralName}
-                    onChange={(event) => setNewJournalName(event.target.value)}
-                    onKeyDown={(e) => { (e.key === 'Enter') && handleClick() }}
-                />
-                <div onClick={handleClick} className="button">New</div>
+                <div className="top-section">
+                    <input
+                        placeholder="New Journal"
+                        className="input-field"
+                        type="text"
+                        value={newJounralName}
+                        onChange={(event) => setNewJournalName(event.target.value)}
+                        onKeyDown={(e) => { (e.key === 'Enter') && handleClick() }}
+                    />
+                    <div onClick={handleClick} className="button">New</div>
+                </div>
+
+                {isErrorActive && <div className="warning-message">Please provide a journal name</div>}
             </div>
             {journals.length > 0 && journals.map((item, index) => {
                 return activeJournal === item.id
-                    ? <div key={index} className="journal-name active">{item.name}</div>
-                    : <div key={index} onClick={() => setActiveJournal(item.id)} className="journal-name inactive">{item.name}</div>;
+                    ? <Journal journalIsActive={true} key={index} journalName={item.name} journalId={item.id} />
+                    : <Journal journalIsActive={false} key={index} journalName={item.name} journalId={item.id} />
             })
             }
         </div>

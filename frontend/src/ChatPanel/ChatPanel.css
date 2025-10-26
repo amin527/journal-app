@@ -1,46 +1,45 @@
 .chat-panel{
     display: inline-block;
-    background-color: rgb(209, 209, 209);
+    background-color: #bab4c9;
     width: 20%;
     height: 100%;
 }
-
-.new-journal-container{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    padding-bottom: 10px;
+.new-journal-container {
     border-bottom: 1px solid rgb(0, 0, 0);
 }
 
+/*  */
+.new-journal-container .top-section{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 3%;
+    box-sizing: border-box;
+}
+.new-journal-container .input-field{
+    box-sizing: border-box;
+    width: 79%;
+}
+.new-journal-container .warning-message {
+    margin: 0px 0px 10px 10px;
+    font-size: 0.8em;
+}
+
+
+/* button */
 .new-journal-container .button{
-    background-color: white;
+    background-color: var(--accent-color);
     cursor: pointer;
     display: inline-block;
     padding: 5px 10px;
-    margin-right: 10px;
+    margin-right: 3%;
+    color: rgb(29, 29, 29);
+    font-weight: bold;
+    text-align: center;
 }
 
 .new-journal-container .button:hover{
-    background-color: rgb(204, 204, 204);
-}
-
-.new-journal-container .input-field{
-    box-sizing: border-box;
-    width: 80%;
-    margin-left: 10px;
-}
-
-.journal-name{
-    padding: 15px 10px;
-    border-bottom: 1px solid rgb(0, 0, 0);
-}
-
-.journal-name.inactive:hover{
-    background-color: rgb(119, 119, 119);
-}
-
-.journal-name.active{
     background-color: black;
     color: white;
 }
+
+
