@@ -1,20 +1,24 @@
-# Stage 1: build
-FROM maven:3.9.0-eclipse-temurin-17 AS build
-WORKDIR /app
-# copy only what we need to leverage Docker cache
-COPY backend/pom.xml ./ 
-COPY backend/src ./src
-RUN mvn -B -f pom.xml -DskipTests package
+# ---- Build Stage ----
+FROM mcr.microsoft.com/openjdk/jdk:25-ubuntu AS build
 
-# Stage 2: runtime
-FROM eclipse-temurin:17-jre
 WORKDIR /app
-# copy jar from build stage (adjust if your artifactId/version differs)
+
+# Install Maven
+RUN apt-get update && apt-get install -y maven
+
+# Copy pom.xml and download dependencies
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+
+# Copy source code and build
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# ---- Runtime Stage ----
+FROM mcr.microsoft.com/openjdk/jdk:25-ubuntu
+
+WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose port (not strictly required, but helpful)
 EXPOSE 8080
-
-# Use Render's $PORT at runtime so app binds correctly.
-# Note: Render will supply $PORT env; we pass it as -Dserver.port
-ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT:-8080} -jar /app/app.jar"]
+ENTRYPOINT ["java", "-Dserver.port=${PORT:-8080}", "-jar", "app.jar"]
