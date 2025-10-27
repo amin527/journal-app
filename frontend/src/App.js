@@ -13,13 +13,14 @@ function App() {
   let [isAuthorised, setIsAuthorised] = useState(false)
   let [journals, setJournals] = useState([])
   let [entries, setEntries] = useState([])
-
+  const API_URL = process.env.REACT_APP_API_URL;
+  
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem("token")
         if (!(token == null)) {
-          const response = await fetch("http://localhost:8080/get-user-info", {
+          const response = await fetch(`${API_URL}/get-user-info`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",

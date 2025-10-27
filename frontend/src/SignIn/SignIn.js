@@ -10,6 +10,7 @@ function SignIn() {
     let [error, setError] = useState(null)
     let navigate = useNavigate()
     const { setIsAuthorised } = useContext(AuthorisationContext)
+    const API_URL = process.env.REACT_APP_API_URL;
 
     function handleClick() {
         const options = {
@@ -21,7 +22,7 @@ function SignIn() {
             })
         }
         setError(null)
-        fetch("http://localhost:8080/auth/authenticate", options)
+        fetch(`${API_URL}/auth/authenticate`, options)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

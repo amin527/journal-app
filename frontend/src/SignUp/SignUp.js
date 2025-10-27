@@ -11,6 +11,7 @@ function SignUp() {
     let navigate = useNavigate()
     const { setIsAuthorised } = useContext(AuthorisationContext)
 
+    const API_URL = process.env.REACT_APP_API_URL;
     useEffect(() => {
         console.log(error)
     }, [error])
@@ -25,7 +26,7 @@ function SignUp() {
             })
         }
         setError(null)
-        fetch("http://localhost:8080/auth/register", options)
+        fetch(`${API_URL}/auth/register`, options)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
