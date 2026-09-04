@@ -17,11 +17,19 @@ function ChatArea() {
     useEffect(() => {
         if (textareaRef.current !== null) {
             textareaRef.current.style.height = '20px';
-            buttonRef.current.style.height = '20px';
             textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
-            buttonRef.current.style.height = textareaRef.current.scrollHeight + 'px';
         }
     }, [draftMessage])
+
+    useEffect(() => {
+        const textarea = textareaRef.current
+        if (textarea === null) return
+        const resizeObserver = new ResizeObserver(() => {
+            buttonRef.current.style.height = textarea.offsetHeight + 'px';
+        })
+        resizeObserver.observe(textarea)
+        return () => resizeObserver.disconnect()
+    }, [])
 
     async function handleClick() {
         if (!(draftMessage === "") && !(activeJournal === -1)) {

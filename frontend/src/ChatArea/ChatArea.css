@@ -27,7 +27,8 @@
 .chat-area .input-field-container{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
+    gap: 8px;
     box-sizing: border-box;
     background-color: var(--accent-color);
     padding: 20px;
@@ -36,37 +37,42 @@
     width: 100%;
 }
 .chat-area .input-field-container .input-field{
-    width: 95%;
-    padding: 10px;
-    border-color: rgb(228, 228, 228);
-    border-width: 1px;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    flex: 1;
+    min-width: 0;
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
     font-size: 0.95em;
     font-family: inherit;
     box-sizing: border-box;
+    outline: none;
     overflow: hidden;
+    resize: vertical;
+    transition: border-color 0.15s ease;
+}
+.chat-area .input-field-container .input-field::placeholder {
+    color: var(--temporary-text-color);
+}
+.chat-area .input-field-container .input-field:focus{
+    border-color: black;
 }
 .chat-area .input-field-container .button{
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    width: 5%;
-    border: 0;
+    padding: 0 14px;
+    height: 34px;
+    border-radius: 8px;
     background-color: black;
     color: white;
     text-align: center;
     cursor: pointer;
     box-sizing: border-box;
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 .chat-area .input-field-container .button:hover{
     background-color: white;
     color: black;
-    border: 0px black solid;
-    border-left-width: 1px;
 }
