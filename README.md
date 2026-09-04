@@ -4,8 +4,11 @@ A full-stack journaling app demonstrating end-to-end web development: a
 Spring Boot/PostgreSQL backend with JWT auth, and a React frontend with
 persistent login, full CRUD, and a reusable context-menu pattern.
 
----
+**Stack:** Spring Boot 3.5.6 · Spring Security · JJWT 0.13.0 (HS256) ·
+BCrypt · PostgreSQL + Spring Data JPA · Lombok — React 19.2 · React Router
+7.9 · Context API · Create React App
 
+---
 ## Noteworthy Features
 
 - **Auth** — registration and login hash passwords with BCrypt (never
