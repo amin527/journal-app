@@ -1,40 +1,66 @@
 .chat-panel{
     display: inline-block;
-    background-color: #bab4c9;
+    background-color: var(--background-color);
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
     width: 20%;
     height: 100%;
+    box-sizing: border-box;
 }
 .new-journal-container {
-    border-bottom: 1px solid rgb(0, 0, 0);
+    padding: 14px 6%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
 }
 
-/*  */
 .new-journal-container .top-section{
     display: flex;
-    justify-content: space-between;
-    padding: 10px 3%;
-    box-sizing: border-box;
+    align-items: center;
+    gap: 8px;
 }
+
 .new-journal-container .input-field{
     box-sizing: border-box;
-    width: 79%;
+    flex: 1;
+    min-width: 0;
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+    font-size: 0.95em;
+    outline: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
 }
+
+.new-journal-container .input-field::placeholder {
+    color: var(--temporary-text-color);
+}
+
+.new-journal-container .input-field:focus{
+    border-color: var(--accent-color);
+    background-color: rgb(255, 255, 255);
+}
+
 .new-journal-container .warning-message {
-    margin: 0px 0px 10px 10px;
+    margin: 8px 0px 0px 2px;
     font-size: 0.8em;
+    color: #7a1f1f;
 }
 
 
 /* button */
 .new-journal-container .button{
+    flex-shrink: 0;
     background-color: var(--accent-color);
     cursor: pointer;
-    display: inline-block;
-    padding: 5px 10px;
-    margin-right: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
     color: rgb(29, 29, 29);
-    font-weight: bold;
-    text-align: center;
+    font-size: 1.1em;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .new-journal-container .button:hover{
