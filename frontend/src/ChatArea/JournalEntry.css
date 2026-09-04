@@ -1,0 +1,107 @@
+.home-page .message-container {
+    width: 90%;
+    box-sizing: border-box;
+    margin-top: 18px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px 0 10px 15px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    align-items: center;
+}
+.home-page .message-container.editing {
+    padding-left: 8px;
+}
+
+/* left-block */
+.left-block{
+    width: 93%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.message-container .input-container {
+    width: 98%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.message-container .input-container .input-field {
+    width: 100%;
+    padding: 10px 6px;
+    border-color: rgb(228, 228, 228);
+    border-width: 1px;
+    border-radius: 5px;
+    border-top-right-radius: 0px;
+    font-size: 0.95em;
+    font-family: inherit;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.message-container .send-button {
+    background-color: black;
+    color: white;
+    aspect-ratio: 1 / 1;
+    padding: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.message-container .message{
+    font-size: 0.95em;
+    width: 90%;
+}
+/* right-block */
+.right-block {
+    width: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    text-align: right;
+}
+.message-container .right-block .time-stamp {
+    font-size: 0.7em;
+    margin-right: 12px;
+    margin-top: 2px;
+}
+.message-container .menu-button {
+    margin-right: 10px;
+    width: auto;
+    display: inline-block;
+    border-radius: 10px;
+    text-align: right;
+    padding: 2px;
+}
+.message-container .menu-button:hover {
+    background-color: gray;
+}
+
+/* context-menu */
+.home-page .message-container .context-menu {
+    position: absolute;
+    right: 12px;
+    top: 32px;
+    background-color: rgb(214, 214, 214);
+    padding: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    border-radius: 3px;
+    text-align: left;
+}
+.home-page .context-menu .menu-action {
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+}
+.home-page .context-menu .action .menu-action-name {
+    margin-left:10px;
+}
+.home-page .context-menu .menu-action:hover {
+    background-color: gray;
+}
+
