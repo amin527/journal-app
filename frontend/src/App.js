@@ -44,7 +44,7 @@ function App() {
       }   
     }
     fetchUserInfo()
-  }, [isAuthorised])
+  }, [isAuthorised, API_URL])
 
   return (
     <AuthorisationContext.Provider value={{ isAuthorised, setIsAuthorised, journals, setJournals }}>
