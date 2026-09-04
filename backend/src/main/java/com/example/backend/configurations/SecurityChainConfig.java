@@ -2,6 +2,7 @@ package com.example.backend.configurations;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
@@ -55,7 +56,8 @@ public class SecurityChainConfig {
         @Bean
         public CorsConfigurationSource corsConfigurationSource() {
                 CorsConfiguration configuration = new CorsConfiguration();
-                configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://journal-app-frontend-q7lf.vercel.app"));
+                String allowedOrigins = System.getenv().getOrDefault("CORS_ALLOWED_ORIGINS", "http://localhost:3000");
+                configuration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
                 configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
                 configuration.setExposedHeaders(List.of("Authorization"));
