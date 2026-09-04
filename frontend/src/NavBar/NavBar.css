@@ -1,0 +1,52 @@
+.nav-bar {
+    display: flex;
+    background-color: black;
+    position: relative;
+    padding: 20px 0px;
+    height: 9%;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* button */
+.nav-bar .button {
+    display: inline-block;
+    background-color: white;
+    padding: 7px 10px 8px;
+    font-size: 1em;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-bar #home-page.button {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.nav-bar #sign-in-page.button {
+    margin-left: 20px;
+}
+
+.nav-bar .button:hover {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* title */
+.nav-bar .title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    color: white;
+    font-weight: bold;
+    font-size: xx-large;
+    line-height: 2;
+}

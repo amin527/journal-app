@@ -1,0 +1,74 @@
+.sign-in{
+    height: 100vh;
+}
+
+.sign-in .body {
+    display: flex;
+    height: 91%;
+    background-color: var(--background-color);
+    align-items: center;
+}
+
+.sign-in .input-field-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--accent-color);
+    padding: 20px;
+    width: 20%;
+    margin: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+.sign-in .title {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+.sign-in .error{
+    margin-top: 10px;
+    color: rgb(34, 34, 34);
+}
+
+/* input fields */
+.sign-in .input-field{
+    border: 0px;
+    padding: 3px 10px;
+    height: 30px;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+/* buttons */
+.sign-in .button {
+    margin-top: 15px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 20px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+.sign-in .sign-in-button {
+    padding: 7px 20px 8px;
+    background-color: black;
+    color: white;
+}
+.sign-in .input-field-container .sign-in-button:hover {
+    background-color: white;
+    color: black;
+}
+.sign-in .sign-up-button{
+    padding: 7px 13px 8px;
+    text-decoration: none;
+    color: black;
+    margin-right: 10px;
+}
+.sign-in .sign-up-button:hover{
+    background-color: rgb(223, 223, 223);
+}
+.button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
