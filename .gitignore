@@ -55,3 +55,7 @@ frontend/yarn-error.log*
 ### Shared / IDE (root-level, applies anywhere) ###
 .vscode/
 .DS_Store
+
+*.txt
+
+.env
