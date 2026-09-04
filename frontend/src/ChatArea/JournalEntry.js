@@ -25,14 +25,13 @@ function JournalEntry(props) {
     useClickOutside(menu, setMenu, menuRef, buttonRef)
     useEffect(() => {
         if (textareaRef.current !== null) {
-            console.log("yessir")
             textareaRef.current.style.height = '42px';
             textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
             if (textareaRef.current.scrollHeight > 42) {
                 props.messagesRef.current.classList.add('editing');
             } 
         }
-    }, [editingEntry])
+    }, [editingEntry, props])
 
 function handleClick(event) {
     if (menu.visible) {
