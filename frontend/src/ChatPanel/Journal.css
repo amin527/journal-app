@@ -1,9 +1,13 @@
 .journal-container {
     padding: 15px 6%;
-    border-bottom: 1px solid rgb(0, 0, 0);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
     font-weight: bold;
     width: 100%;
     box-sizing: border-box;
+}
+.journal-container.active,
+.journal-container.inactive {
+    cursor: pointer;
 }
 .journal-container.inactive:hover {
     background-color: var(--accent-color);
