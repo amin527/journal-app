@@ -20,6 +20,11 @@
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
 }
 
+.sign-in .input-field-container form {
+    display: flex;
+    flex-direction: column;
+}
+
 
 .sign-in .title {
     font-weight: bold;
@@ -52,6 +57,8 @@
     padding: 7px 20px 8px;
     background-color: black;
     color: white;
+    border: none;
+    font: inherit;
 }
 .sign-in .input-field-container .sign-in-button:hover {
     background-color: white;
