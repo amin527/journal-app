@@ -3,6 +3,7 @@ import { JournalsContext } from "../App"
 import { ActiveJournalContext } from "../HomePage/HomePage"
 import { useContext, useState } from "react"
 import Journal from "./Journal"
+import { AiOutlinePlus } from "react-icons/ai"
 
 function ChatPanel() {
     const API_URL = process.env.REACT_APP_API_URL;
@@ -38,14 +39,16 @@ function ChatPanel() {
             <div className="new-journal-container">
                 <div className="top-section">
                     <input
-                        placeholder="New Journal"
+                        placeholder="New journal"
                         className="input-field"
                         type="text"
                         value={newJounralName}
                         onChange={(event) => setNewJournalName(event.target.value)}
                         onKeyDown={(e) => { (e.key === 'Enter') && handleClick() }}
                     />
-                    <div onClick={handleClick} className="button">New</div>
+                    <div onClick={handleClick} className="button" title="Create journal">
+                        <AiOutlinePlus />
+                    </div>
                 </div>
 
                 {isErrorActive && <div className="warning-message">Please provide a journal name</div>}
