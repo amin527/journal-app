@@ -12,7 +12,8 @@ function SignIn() {
     const { setIsAuthorised } = useContext(AuthorisationContext)
     const API_URL = process.env.REACT_APP_API_URL;
 
-    function handleClick() {
+    function handleSubmit(event) {
+        event.preventDefault()
         const options = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -44,12 +45,14 @@ function SignIn() {
                 <div className="input-field-container">
                     <div className="title">Sign In</div>
                     {!(error == null) && <div className="error">{error}</div>}
-                    <input id="email" className="input-field" type="text" placeholder="Email" onChange={(event) => setEmail(event.target.value)} />
-                    <input id="password" className="input-field" type="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)} />
-                    <div className="button-container">
-                        <NavLink to="/sign-up" id="nav-link" className="sign-up-button button">Sign Up</NavLink>
-                        <div className="sign-in-button button" onClick={handleClick}>Submit</div>
-                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <input id="email" className="input-field" type="text" placeholder="Email" autoComplete="username" onChange={(event) => setEmail(event.target.value)} />
+                        <input id="password" className="input-field" type="password" placeholder="Password" autoComplete="current-password" onChange={(event) => setPassword(event.target.value)} />
+                        <div className="button-container">
+                            <NavLink to="/sign-up" id="nav-link" className="sign-up-button button">Sign Up</NavLink>
+                            <button type="submit" className="sign-in-button button">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
