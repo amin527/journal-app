@@ -84,24 +84,25 @@
     position: absolute;
     right: 12px;
     top: 32px;
-    background-color: rgb(214, 214, 214);
-    padding: 5px;
+    background-color: white;
+    padding: 6px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     z-index: 100;
-    border-radius: 3px;
+    border-radius: 8px;
     text-align: left;
 }
 .home-page .context-menu .menu-action {
     padding: 8px 10px;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
+    color: rgb(29, 29, 29);
 }
-.home-page .context-menu .action .menu-action-name {
+.home-page .context-menu .menu-action .menu-action-name {
     margin-left:10px;
 }
 .home-page .context-menu .menu-action:hover {
-    background-color: gray;
+    background-color: var(--accent-color);
 }
 
