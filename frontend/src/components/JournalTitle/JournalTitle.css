@@ -47,24 +47,25 @@
 /* context menu */
 .chat-panel .context-menu {
     position: absolute;
-    background-color: rgb(214, 214, 214);
-    padding: 5px;
+    background-color: white;
+    padding: 6px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     z-index: 100;
-    border-radius: 3px;
+    border-radius: 8px;
     text-align: left;
 }
 .chat-panel .context-menu .menu-action {
     padding: 8px 10px;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
+    color: rgb(29, 29, 29);
 }
 .chat-panel .context-menu .menu-action-name {
     margin-left:10px;
 }
 .chat-panel .context-menu .menu-action:hover {
-    background-color: gray;
+    background-color: var(--accent-color);
 }
 
