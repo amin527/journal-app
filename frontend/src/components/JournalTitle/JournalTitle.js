@@ -1,11 +1,11 @@
-import "./Journal.css"
-import { ActiveJournalContext } from "../HomePage/HomePage"
+import "./JournalTitle.css"
+import { ActiveJournalContext } from "../../pages/Landing/Landing"
 import { useContext, useState, useEffect, useRef } from "react"
-import { EntriesContext, JournalsContext } from "../App"
-import useClickOutside from "../CustomHooks/useClickOutside"
+import { EntriesContext, JournalsContext } from "../../App"
+import useClickOutside from "../../hooks/useClickOutside"
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
-function Journal(props) {
+function JournalTitle(props) {
     const journalName = props.journalName
     const journalId = props.journalId
     const API_URL = process.env.REACT_APP_API_URL;
@@ -112,4 +112,4 @@ function Journal(props) {
         </>
     )
 }
-export default Journal
+export default JournalTitle

@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router"
 import "./App.css"
-import HomePage from "./HomePage/HomePage";
-import SignIn from "./SignIn/SignIn";
-import SignUp from "./SignUp/SignUp";
+import Landing from "./pages/Landing/Landing";
+import SignIn from "./pages/SignIn/SignIn";
+import SignUp from "./pages/SignUp/SignUp";
 import { useState, useEffect, createContext } from "react";
 
 export const AuthorisationContext = createContext()
@@ -51,7 +51,7 @@ function App() {
       <JournalsContext.Provider value={{ journals, setJournals }}>
         <EntriesContext.Provider value={{ entries, setEntries }}>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<Landing />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
           </Routes>

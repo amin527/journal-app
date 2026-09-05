@@ -1,11 +1,11 @@
-import "./ChatArea.css"
+import "./JournalPane.css"
 import { useState, useContext, useRef, useEffect } from "react"
-import { EntriesContext } from "../App"
-import { ActiveJournalContext } from "../HomePage/HomePage"
-import JournalEntry from "./JournalEntry"
+import { EntriesContext } from "../../App"
+import { ActiveJournalContext } from "../../pages/Landing/Landing"
+import JournalEntry from "../JournalEntry/JournalEntry"
 import { BiSend } from "react-icons/bi";
 
-function ChatArea() {
+function JournalPane() {
     let [draftMessage, setDraftMessage] = useState("")
     const { activeJournal } = useContext(ActiveJournalContext)
     const { entries, setEntries } = useContext(EntriesContext)
@@ -76,4 +76,4 @@ function ChatArea() {
         </div>
     )
 }
-export default ChatArea
+export default JournalPane

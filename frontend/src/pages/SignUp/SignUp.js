@@ -1,8 +1,8 @@
 import "./SignUp.css"
-import NavBar from "../NavBar/NavBar"
+import TopNavbar from "../../components/TopNavbar/TopNavbar"
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router"
-import { AuthorisationContext } from "../App"
+import { AuthorisationContext } from "../../App"
 
 function SignUp() {
     let [email, setEmail] = useState("")
@@ -45,7 +45,7 @@ function SignUp() {
 
     return (
         <div className="sign-up">
-            <NavBar location="sign-in"></NavBar>
+            <TopNavbar location="sign-in"></TopNavbar>
             <div className="body">
                 <div className="input-field-container">
                     <div className="title">Sign Up</div>

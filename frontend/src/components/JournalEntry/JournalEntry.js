@@ -1,7 +1,7 @@
 import "./JournalEntry.css"
 import { useState, useRef, useContext, useEffect } from "react";
-import useClickOutside from "../CustomHooks/useClickOutside";
-import { EntriesContext } from "../App";
+import useClickOutside from "../../hooks/useClickOutside";
+import { EntriesContext } from "../../App";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { BiSend } from "react-icons/bi";
