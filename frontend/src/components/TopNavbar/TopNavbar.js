@@ -1,9 +1,9 @@
-import "./NavBar.css"
+import "./TopNavbar.css"
 import { NavLink } from "react-router";
 import { useContext } from "react"
-import { AuthorisationContext } from "../App";
+import { AuthorisationContext } from "../../App";
 
-function NavBar(props) {
+function TopNavbar(props) {
     const {isAuthorised, setIsAuthorised} = useContext(AuthorisationContext)
 
     function handleLogOut(){
@@ -29,4 +29,4 @@ function NavBar(props) {
         </div>
     )
 }
-export default NavBar
+export default TopNavbar
