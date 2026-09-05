@@ -48,6 +48,10 @@
     padding: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    cursor: pointer;
+}
+.message-container .send-button:hover {
+    background-color: var(--accent-color);
 }
 .message-container .message{
     font-size: 0.95em;
@@ -74,9 +78,10 @@
     border-radius: 10px;
     text-align: right;
     padding: 2px;
+    cursor: pointer;
 }
 .message-container .menu-button:hover {
-    background-color: gray;
+    background-color: var(--accent-color);
 }
 
 /* context-menu */
