@@ -29,7 +29,8 @@ function JournalEntry(props) {
             textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
             if (textareaRef.current.scrollHeight > 42) {
                 props.messagesRef.current.classList.add('editing');
-            } 
+            }
+            textareaRef.current.focus();
         }
     }, [editingEntry, props])
 
