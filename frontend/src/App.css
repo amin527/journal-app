@@ -1,5 +1,36 @@
 :root {
-  --background-color: #fffdec;
-  --accent-color: #9672da;
-  --temporary-text-color: rgba(29, 29, 29, 0.5);
+  --color-bg: #faf7f2;
+  --color-surface: #ffffff;
+
+  --color-text: #1f2430;
+  --color-text-muted: #5b6070;
+  --color-placeholder: #6f7381;
+
+  --color-border: #e7e2d9;
+  --color-border-strong: #d6d0c4;
+
+  --color-accent: #2f4b7c;
+  --color-accent-hover: #243b63;
+  --color-accent-soft: #e6ecf5;
+  --color-on-accent: #ffffff;
+
+  --color-hover: rgba(31, 36, 48, 0.05);
+  --color-hover-strong: rgba(31, 36, 48, 0.08);
+  --color-surface-hover: rgba(255, 255, 255, 0.7);
+
+  --color-danger: #a23b32;
+  --color-danger-soft: #fbf0ee;
+
+  --shadow-sm: 0 1px 2px rgba(31, 36, 48, 0.06), 0 2px 6px rgba(31, 36, 48, 0.06);
+  --shadow-md: 0 2px 4px rgba(31, 36, 48, 0.05), 0 10px 24px rgba(31, 36, 48, 0.08);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+::selection {
+  background-color: var(--color-accent-soft);
+  color: var(--color-text);
 }

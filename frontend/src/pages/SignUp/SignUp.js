@@ -1,13 +1,14 @@
-import "./SignUp.css"
+import "../Auth.css"
 import TopNavbar from "../../components/TopNavbar/TopNavbar"
 import { useState, useEffect, useContext } from "react"
-import { useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { AuthorisationContext } from "../../App"
 
 function SignUp() {
     let [email, setEmail] = useState("")
     let [password, setPassword] = useState("")
     let [error, setError] = useState(null)
+    let [isSubmitting, setIsSubmitting] = useState(false)
     let navigate = useNavigate()
     const { setIsAuthorised } = useContext(AuthorisationContext)
 
@@ -16,7 +17,8 @@ function SignUp() {
         console.log(error)
     }, [error])
 
-    function handleClick() {
+    function handleSubmit(event) {
+        event.preventDefault()
         const options = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -26,6 +28,7 @@ function SignUp() {
             })
         }
         setError(null)
+        setIsSubmitting(true)
         fetch(`${API_URL}/auth/register`, options)
             .then(response => {
                 if (!response.ok) {
@@ -39,22 +42,42 @@ function SignUp() {
                 setIsAuthorised(true)
                 navigate("/")
             })
-            .catch(response => {setError("Invalid username or password"); console.error(response)});
+            .catch(response => {setError("We couldn't create your account. Check your email and password and try again."); console.error(response)})
+            .finally(() => setIsSubmitting(false));
     }
 
 
     return (
-        <div className="sign-up">
+        <div className="auth-page">
             <TopNavbar location="sign-in"></TopNavbar>
-            <div className="body">
-                <div className="input-field-container">
-                    <div className="title">Sign Up</div>
-                    {!(error == null) && <div className="error">{error}</div>}
-                    <input id="email" className="input-field" type="text" placeholder="Email" onChange={(event) => setEmail(event.target.value)} />
-                    <input id="password" className="input-field" type="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)} />
-                    <div className="button" onClick={handleClick}>Submit</div>
+            <main className="auth-body">
+                <div className="auth-card">
+                    <h1 className="auth-title">Create an account</h1>
+                    <p className="auth-subtitle">Start your private journal in seconds.</p>
+
+                    <form className="auth-form" onSubmit={handleSubmit}>
+                        {!(error == null) && <p className="auth-error" role="alert">{error}</p>}
+
+                        <div className="auth-field">
+                            <label htmlFor="email" className="auth-label">Email</label>
+                            <input id="email" className="auth-input" type="email" autoComplete="email" required onChange={(event) => setEmail(event.target.value)} />
+                        </div>
+
+                        <div className="auth-field">
+                            <label htmlFor="password" className="auth-label">Password</label>
+                            <input id="password" className="auth-input" type="password" autoComplete="new-password" required onChange={(event) => setPassword(event.target.value)} />
+                        </div>
+
+                        <button type="submit" className="auth-submit" disabled={isSubmitting}>
+                            {isSubmitting ? "Creating account…" : "Create account"}
+                        </button>
+                    </form>
+
+                    <p className="auth-switch">
+                        Already have an account? <Link to="/sign-in">Sign in</Link>
+                    </p>
                 </div>
-            </div>
+            </main>
         </div>
     )
 }

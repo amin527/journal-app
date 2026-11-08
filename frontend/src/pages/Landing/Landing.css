@@ -1,17 +1,31 @@
+.home-page {
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg);
+}
+
+.home-page .nav-bar {
+    height: auto;
+    flex-shrink: 0;
+}
 
 .home-page .home-content-container {
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: row;
-    height: 91%;
-    box-sizing: border-box;
 }
 
-.home-page{
-    height: 100vh;
-    background-color: var(--background-color);
+.home-page--guest {
+    display: block;
+    height: auto;
+    min-height: 100vh;
 }
 
-.home-warning-message{
-    margin-top: 20px;
-    text-align: center;
+@media (max-width: 768px) {
+    .home-page .home-content-container {
+        flex-direction: column;
+    }
 }

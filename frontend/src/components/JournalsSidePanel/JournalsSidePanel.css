@@ -1,71 +1,135 @@
-.chat-panel{
-    display: inline-block;
-    background-color: var(--background-color);
-    border-right: 1px solid rgba(0, 0, 0, 0.15);
-    width: 20%;
-    height: 100%;
-    box-sizing: border-box;
-}
-.new-journal-container {
-    padding: 14px 6%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+.chat-panel {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: auto;
+    background-color: var(--color-bg);
+    border-right: 1px solid var(--color-border);
     box-sizing: border-box;
 }
 
-.new-journal-container .top-section{
+.new-journal-container {
+    padding: 20px 16px 12px;
+}
+
+.new-journal-form {
     display: flex;
     align-items: center;
-    gap: 8px;
+    height: 40px;
+    padding: 4px;
+    box-sizing: border-box;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 10px;
+    transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
 }
 
-.new-journal-container .input-field{
-    box-sizing: border-box;
+.new-journal-form:focus-within {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+.new-journal-form .input-field {
     flex: 1;
     min-width: 0;
-    padding: 8px 12px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    background-color: rgb(255, 255, 255);
+    height: 100%;
+    padding: 0 8px;
+    font: inherit;
     font-size: 0.95em;
+    color: var(--color-text);
+    background: transparent;
+    border: none;
     outline: none;
-    transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
-.new-journal-container .input-field::placeholder {
-    color: var(--temporary-text-color);
+.new-journal-form .input-field::placeholder {
+    color: var(--color-placeholder);
 }
 
-.new-journal-container .input-field:focus{
-    border-color: var(--accent-color);
-    background-color: rgb(255, 255, 255);
-}
-
-.new-journal-container .warning-message {
-    margin: 8px 0px 0px 2px;
-    font-size: 0.8em;
-    color: #7a1f1f;
-}
-
-
-/* button */
-.new-journal-container .button{
+.new-journal-form .button {
     flex-shrink: 0;
-    background-color: var(--accent-color);
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    color: rgb(29, 29, 29);
-    font-size: 1.1em;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    font-size: 0.95rem;
+    color: var(--color-accent);
+    background-color: var(--color-accent-soft);
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background-color 150ms ease-out, color 150ms ease-out;
 }
 
-.new-journal-container .button:hover{
-    background-color: black;
-    color: white;
+.new-journal-form .button.is-ready {
+    color: var(--color-on-accent);
+    background-color: var(--color-accent);
 }
 
+.new-journal-form .button.is-ready:hover {
+    background-color: var(--color-accent-hover);
+}
 
+.new-journal-form .button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.new-journal-container .warning-message {
+    margin: 8px 0 0 2px;
+    font-size: 0.8125rem;
+    color: var(--color-danger);
+}
+
+.journal-list-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 12px 20px 8px;
+}
+
+.journal-list-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+.journal-list-count {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.journal-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 8px 16px;
+}
+
+.journal-list-empty {
+    margin: 4px 20px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+    .chat-panel {
+        width: 100%;
+        max-height: 40vh;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .new-journal-form,
+    .new-journal-form .button {
+        transition: none;
+    }
+}

@@ -1,13 +1,14 @@
-import "./SignIn.css"
+import "../Auth.css"
 import TopNavbar from "../../components/TopNavbar/TopNavbar"
 import { useState, useContext } from "react"
-import { NavLink, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthorisationContext } from "../../App";
 
 function SignIn() {
     let [email, setEmail] = useState("")
     let [password, setPassword] = useState("")
     let [error, setError] = useState(null)
+    let [isSubmitting, setIsSubmitting] = useState(false)
     let navigate = useNavigate()
     const { setIsAuthorised } = useContext(AuthorisationContext)
     const API_URL = process.env.REACT_APP_API_URL;
@@ -23,6 +24,7 @@ function SignIn() {
             })
         }
         setError(null)
+        setIsSubmitting(true)
         fetch(`${API_URL}/auth/authenticate`, options)
             .then(response => {
                 if (!response.ok) {
@@ -35,26 +37,41 @@ function SignIn() {
                 setIsAuthorised(true)
                 navigate("/")
             })
-            .catch(response => {setError("Invalid username or password"); console.error(response)});
+            .catch(response => {setError("Incorrect email or password. Please try again."); console.error(response)})
+            .finally(() => setIsSubmitting(false));
     }
 
     return (
-        <div className="sign-in">
+        <div className="auth-page">
             <TopNavbar location="sign-in"></TopNavbar>
-            <div className="body">
-                <div className="input-field-container">
-                    <div className="title">Sign In</div>
-                    {!(error == null) && <div className="error">{error}</div>}
-                    <form onSubmit={handleSubmit}>
-                        <input id="email" className="input-field" type="text" placeholder="Email" autoComplete="username" onChange={(event) => setEmail(event.target.value)} />
-                        <input id="password" className="input-field" type="password" placeholder="Password" autoComplete="current-password" onChange={(event) => setPassword(event.target.value)} />
-                        <div className="button-container">
-                            <NavLink to="/sign-up" id="nav-link" className="sign-up-button button">Sign Up</NavLink>
-                            <button type="submit" className="sign-in-button button">Submit</button>
+            <main className="auth-body">
+                <div className="auth-card">
+                    <h1 className="auth-title">Sign in</h1>
+                    <p className="auth-subtitle">Welcome back to My Diary.</p>
+
+                    <form className="auth-form" onSubmit={handleSubmit}>
+                        {!(error == null) && <p className="auth-error" role="alert">{error}</p>}
+
+                        <div className="auth-field">
+                            <label htmlFor="email" className="auth-label">Email</label>
+                            <input id="email" className="auth-input" type="email" autoComplete="username" required onChange={(event) => setEmail(event.target.value)} />
                         </div>
+
+                        <div className="auth-field">
+                            <label htmlFor="password" className="auth-label">Password</label>
+                            <input id="password" className="auth-input" type="password" autoComplete="current-password" required onChange={(event) => setPassword(event.target.value)} />
+                        </div>
+
+                        <button type="submit" className="auth-submit" disabled={isSubmitting}>
+                            {isSubmitting ? "Signing in…" : "Sign in"}
+                        </button>
                     </form>
+
+                    <p className="auth-switch">
+                        Don't have an account? <Link to="/sign-up">Sign up</Link>
+                    </p>
                 </div>
-            </div>
+            </main>
         </div>
     )
 }

@@ -3,7 +3,7 @@ import { JournalsContext } from "../../App"
 import { ActiveJournalContext } from "../../pages/Landing/Landing"
 import { useContext, useState } from "react"
 import JournalTitle from "../JournalTitle/JournalTitle"
-import { AiOutlinePlus } from "react-icons/ai"
+import { PiPlusBold } from "react-icons/pi"
 
 function JournalsSidePanel() {
     const API_URL = process.env.REACT_APP_API_URL;
@@ -12,8 +12,9 @@ function JournalsSidePanel() {
     const [newJounralName, setNewJournalName] = useState("")
     const [isErrorActive, setIsErrorActive] = useState(false)
 
-    async function handleClick() {
-        if (!(newJounralName === "")) {
+    async function handleSubmit(event) {
+        event.preventDefault()
+        if (!(newJounralName.trim() === "")) {
             setIsErrorActive(false)
             const response = await fetch(`${API_URL}/add-journal`, {
                 method: "Post",
@@ -35,31 +36,50 @@ function JournalsSidePanel() {
     }
 
     return (
-        <div className="chat-panel">
+        <aside className="chat-panel" aria-label="Journals">
             <div className="new-journal-container">
-                <div className="top-section">
+                <form className="new-journal-form" onSubmit={handleSubmit}>
                     <input
                         placeholder="New journal"
+                        aria-label="New journal name"
                         className="input-field"
                         type="text"
                         value={newJounralName}
                         onChange={(event) => setNewJournalName(event.target.value)}
-                        onKeyDown={(e) => { (e.key === 'Enter') && handleClick() }}
                     />
-                    <div onClick={handleClick} className="button" title="Create journal">
-                        <AiOutlinePlus />
-                    </div>
-                </div>
+                    <button
+                        type="submit"
+                        className={newJounralName.trim() === "" ? "button" : "button is-ready"}
+                        aria-label="Create journal"
+                        title="Create journal"
+                    >
+                        <PiPlusBold aria-hidden="true" />
+                    </button>
+                </form>
 
-                {isErrorActive && <div className="warning-message">Please provide a journal name</div>}
+                {isErrorActive && <div className="warning-message" role="alert">Please provide a journal name</div>}
             </div>
-            {journals.length > 0 && journals.map((item, index) => {
-                return activeJournal === item.id
-                    ? <JournalTitle journalIsActive={true} key={index} journalName={item.name} journalId={item.id} />
-                    : <JournalTitle journalIsActive={false} key={index} journalName={item.name} journalId={item.id} />
-            })
+
+            <div className="journal-list-header">
+                <h2 className="journal-list-title">Journals</h2>
+                <span className="journal-list-count">{journals.length}</span>
+            </div>
+
+            {journals.length > 0 ?
+                <ul className="journal-list">
+                    {journals.map((item) => (
+                        <JournalTitle
+                            key={item.id}
+                            journalIsActive={activeJournal === item.id}
+                            journalName={item.name}
+                            journalId={item.id}
+                        />
+                    ))}
+                </ul>
+                :
+                <p className="journal-list-empty">No journals yet. Name one above to get started.</p>
             }
-        </div>
+        </aside>
     )
 }
 export default JournalsSidePanel

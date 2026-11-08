@@ -2,9 +2,7 @@ import "./JournalEntry.css"
 import { useState, useRef, useContext, useEffect } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 import { EntriesContext } from "../../App";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import { BsThreeDots } from "react-icons/bs";
-import { BiSend } from "react-icons/bi";
+import { PiDotsThreeBold, PiPencilSimple, PiTrash } from "react-icons/pi";
 
 function JournalEntry(props) {
     const journalEntry = props.item
@@ -21,47 +19,54 @@ function JournalEntry(props) {
     const menuRef = useRef(null);
     const textareaRef = useRef(null);
     const API_URL = process.env.REACT_APP_API_URL;
-    
+
     useClickOutside(menu, setMenu, menuRef, buttonRef)
+
     useEffect(() => {
-        if (textareaRef.current !== null) {
-            textareaRef.current.style.height = '42px';
-            textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
-            if (textareaRef.current.scrollHeight > 42) {
-                props.messagesRef.current.classList.add('editing');
+        const textarea = textareaRef.current
+        if (textarea === null) return
+        textarea.style.height = "auto"
+        textarea.style.height = textarea.scrollHeight + "px"
+    }, [editingEntry, newEntry])
+
+    useEffect(() => {
+        if (editingEntry && textareaRef.current !== null) {
+            const textarea = textareaRef.current
+            textarea.focus()
+            textarea.setSelectionRange(textarea.value.length, textarea.value.length)
+        }
+    }, [editingEntry])
+
+    function handleMenuButton(event) {
+        if (menu.visible) {
+            setMenu({ ...menu, visible: false })
+        } else {
+            event.stopPropagation()
+            setMenu({ ...menu, visible: true })
+        }
+    }
+
+    async function deleteHandler() {
+        setMenu({ ...menu, visible: false })
+        const response = await fetch(`${API_URL}/delete-entry`, {
+            method: "Post",
+            body: JSON.stringify({ id: journalEntry.id }),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
             }
-            textareaRef.current.focus();
+        }).catch(response => { console.error(response) })
+        if (response.status === 200) {
+            setEntries(entries.filter(entry => entry.id !== journalEntry.id))
         }
-    }, [editingEntry, props])
-
-function handleClick(event) {
-    if (menu.visible) {
-        setMenu({ visible: false, x: event.pageX, y: event.pageY })
-    } else {
-        event.stopPropagation()
-        setMenu({ visible: true, x: event.pageX, y: event.pageY })
+        const payload = await response.json()
+        console.log(payload)
     }
-}
 
-async function deleteHandler() {
-    const response = await fetch(`${API_URL}/delete-entry`, {
-        method: "Post",
-        body: JSON.stringify({ id: journalEntry.id }),
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        }
-    }).catch(response => { console.error(response) })
-    if (response.status === 200) {
-        setEntries(entries.filter(entry => entry.id !== journalEntry.id))
-    }
-    setMenu({ ...menu, visible: false })
-    const payload = await response.json()
-    console.log(payload)
-}
+    async function editHandler(event) {
+        event?.preventDefault()
+        if (newEntry.trim() === "") return
 
-async function editHandler() {
-    if (newEntry !== "") {
         const response = await fetch(`${API_URL}/edit-entry`, {
             method: "Post",
             body: JSON.stringify({ id: journalEntry.id, newValue: newEntry }),
@@ -79,44 +84,79 @@ async function editHandler() {
         const payload = await response.json()
         console.log(payload)
     }
-    props.messagesRef.current.classList.remove('editing');
-}
 
-function enableEditing() {
-    setMenu({ ...menu, visible: false })
-    setEditingEntry(true);
-}
+    function cancelEditing() {
+        setNewEntry(journalEntry.message)
+        setEditingEntry(false)
+    }
 
-return (
-    <div className={editingEntry ? "message-container editing" : "message-container viewing"} >
-        {editingEntry ?
-            <div className="left-block">
-                <div className="input-container">
-                    <textarea className="input-field" ref={textareaRef} onChange={(event) => setNewEntry(event.target.value)} value={newEntry} onKeyDown={(e) => { (e.key === 'Enter') && editHandler() }} />
-                </div>
-                <BiSend className="send-button" onClick={editHandler} />
-            </div>
-            :
-            <div className="message">{journalEntry.message}</div>
+    function handleKeyDown(event) {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault()
+            editHandler()
+        } else if (event.key === "Escape") {
+            cancelEditing()
         }
-        <div className="right-block">
-            <div ref={buttonRef}><BsThreeDots onClick={handleClick} className="menu-button" size={"1em"} /></div>
-            {menu.visible && (
-                <div className="context-menu" ref={menuRef}>
-                    <div className="menu-action" onClick={enableEditing}>
-                        <AiFillEdit />
-                        <div className="menu-action-name">Edit</div>
-                    </div>
-                    <div className="menu-action" onClick={deleteHandler}>
-                        <AiFillDelete />
-                        <div className="menu-action-name">Delete</div>
-                    </div>
-                </div>
-            )}
-            <div className="time-stamp">{hours}:{minutes}</div>
-        </div>
-    </div>
-)
+    }
 
+    function enableEditing() {
+        setMenu({ ...menu, visible: false })
+        setEditingEntry(true);
+    }
+
+    return (
+        <article className={editingEntry ? "entry editing" : "entry"}>
+            <div className="entry-meta">
+                <time className="entry-time" dateTime={date.toISOString()}>{hours}:{minutes}</time>
+
+                {!editingEntry &&
+                    <div className="entry-menu" ref={buttonRef}>
+                        <button
+                            type="button"
+                            className="entry-more"
+                            aria-label="Entry options"
+                            aria-haspopup="menu"
+                            aria-expanded={menu.visible}
+                            onClick={handleMenuButton}
+                        >
+                            <PiDotsThreeBold aria-hidden="true" />
+                        </button>
+                        {menu.visible && (
+                            <div className="context-menu" role="menu" ref={menuRef}>
+                                <button type="button" role="menuitem" className="menu-action" onClick={enableEditing}>
+                                    <PiPencilSimple aria-hidden="true" />
+                                    <span className="menu-action-name">Edit</span>
+                                </button>
+                                <button type="button" role="menuitem" className="menu-action danger" onClick={deleteHandler}>
+                                    <PiTrash aria-hidden="true" />
+                                    <span className="menu-action-name">Delete</span>
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                }
+            </div>
+
+            {editingEntry ?
+                <form className="entry-edit" onSubmit={editHandler}>
+                    <textarea
+                        className="entry-edit-input"
+                        aria-label="Edit entry"
+                        ref={textareaRef}
+                        rows={1}
+                        value={newEntry}
+                        onChange={(event) => setNewEntry(event.target.value)}
+                        onKeyDown={handleKeyDown}
+                    />
+                    <div className="entry-edit-actions">
+                        <button type="button" className="text-button" onClick={cancelEditing}>Cancel</button>
+                        <button type="submit" className="text-button primary">Save</button>
+                    </div>
+                </form>
+                :
+                <p className="entry-text">{journalEntry.message}</p>
+            }
+        </article>
+    )
 }
 export default JournalEntry
