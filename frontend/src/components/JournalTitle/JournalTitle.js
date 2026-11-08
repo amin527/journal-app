@@ -3,7 +3,7 @@ import { ActiveJournalContext } from "../../pages/Landing/Landing"
 import { useContext, useState, useEffect, useRef } from "react"
 import { EntriesContext, JournalsContext } from "../../App"
 import useClickOutside from "../../hooks/useClickOutside"
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { PiDotsThreeBold, PiPencilSimple, PiTrash, PiNotebook } from "react-icons/pi";
 
 function JournalTitle(props) {
     const journalName = props.journalName
@@ -23,11 +23,15 @@ function JournalTitle(props) {
 
     useEffect(() => {
         inputRef.current?.focus();
+        inputRef.current?.select();
     }, [editingJournalName])
 
     useClickOutside(menu, setMenu, menuRef, journalRef)
 
     async function deleteHandler() {
+        setMenu({ ...menu, visible: false })
+        if (!window.confirm(`Delete "${journalName}" and all of its entries? This can't be undone.`)) return
+
         const response = await fetch(`${API_URL}/delete-journal`, {
             method: "Post",
             body: JSON.stringify({ id: journalId }),
@@ -40,12 +44,14 @@ function JournalTitle(props) {
             setJournals(journals.filter(journal => journal.id !== journalId))
             setEntries(entries.filter(entry => entry.journalId !== journalId))
         }
-        setMenu({ ...menu, visible: false })
         const payload = await response.json()
         console.log(payload)
     }
 
-    async function editHandler() {
+    async function editHandler(event) {
+        event.preventDefault()
+        if (newJournalName.trim() === "") return
+
         const response = await fetch(`${API_URL}/edit-journal`, {
             method: "Post",
             body: JSON.stringify({ id: journalId, newValue: newJournalName }),
@@ -64,13 +70,23 @@ function JournalTitle(props) {
         console.log(payload)
     }
 
+    function cancelEditing() {
+        setNewJournalName(journalName)
+        setEditingJournalName(false)
+    }
+
     function handleContextMenu(event) {
         event.preventDefault();
-        setMenu({
-            visible: true,
-            x: event.pageX,
-            y: event.pageY,
-        });
+        setMenu({ visible: true, x: event.pageX, y: event.pageY });
+    }
+
+    function handleMenuButton(event) {
+        if (menu.visible) {
+            setMenu({ ...menu, visible: false })
+        } else {
+            event.stopPropagation()
+            setMenu({ ...menu, visible: true })
+        }
     }
 
     function enableEditing() {
@@ -78,38 +94,66 @@ function JournalTitle(props) {
         setMenu({ ...menu, visible: false })
     }
 
-    return (
-        <>
-            {editingJournalName ?
-                <div className="journal-container" >
-                    <div className="input-field-container">
-                        <input className="input-field" ref={inputRef} onChange={(event) => setNewJournalName(event.target.value)} value={newJournalName} onKeyDown={(e) => { (e.key === 'Enter') && editHandler() }} />
-                        <div className="button" onClick={editHandler}>Save</div>
+    if (editingJournalName) {
+        return (
+            <li className="journal-item editing">
+                <form className="journal-rename" onSubmit={editHandler}>
+                    <input
+                        className="journal-rename-input"
+                        aria-label="Journal name"
+                        ref={inputRef}
+                        value={newJournalName}
+                        onChange={(event) => setNewJournalName(event.target.value)}
+                        onKeyDown={(e) => { (e.key === 'Escape') && cancelEditing() }}
+                    />
+                    <div className="journal-rename-actions">
+                        <button type="button" className="text-button" onClick={cancelEditing}>Cancel</button>
+                        <button type="submit" className="text-button primary">Save</button>
                     </div>
-                </div>
-                :
-                <>
-                    {props.journalIsActive ?
-                        <div className="journal-container active" ref={journalRef} onContextMenu={handleContextMenu} >{journalName}</div>
-                        :
-                        <div className="journal-container inactive" ref={journalRef} onContextMenu={handleContextMenu} onClick={() => setActiveJournal(journalId)}>{journalName}</div>
-                    }
-                </>
-            }
+                </form>
+            </li>
+        )
+    }
+
+    return (
+        <li
+            className={props.journalIsActive ? "journal-item active" : "journal-item"}
+            ref={journalRef}
+            onContextMenu={handleContextMenu}
+        >
+            <button
+                type="button"
+                className="journal-select"
+                aria-current={props.journalIsActive ? "page" : undefined}
+                onClick={() => setActiveJournal(journalId)}
+            >
+                <PiNotebook className="journal-icon" aria-hidden="true" />
+                <span className="journal-name">{journalName}</span>
+            </button>
+            <button
+                type="button"
+                className="journal-more"
+                aria-label={`Options for ${journalName}`}
+                aria-haspopup="menu"
+                aria-expanded={menu.visible}
+                onClick={handleMenuButton}
+            >
+                <PiDotsThreeBold aria-hidden="true" />
+            </button>
 
             {menu.visible && (
-                <div className="context-menu" ref={menuRef} style={{ top: menu.y, left: menu.x }}>
-                    <div className="menu-action" onClick={enableEditing}>
-                        <AiFillEdit />
-                        <div className="menu-action-name">Edit</div>
-                    </div>
-                    <div className="menu-action" onClick={deleteHandler}>
-                        <AiFillDelete />
-                        <div className="menu-action-name">Delete</div>
-                    </div>
+                <div className="context-menu" role="menu" ref={menuRef}>
+                    <button type="button" role="menuitem" className="menu-action" onClick={enableEditing}>
+                        <PiPencilSimple aria-hidden="true" />
+                        <span className="menu-action-name">Rename</span>
+                    </button>
+                    <button type="button" role="menuitem" className="menu-action danger" onClick={deleteHandler}>
+                        <PiTrash aria-hidden="true" />
+                        <span className="menu-action-name">Delete</span>
+                    </button>
                 </div>
             )}
-        </>
+        </li>
     )
 }
 export default JournalTitle

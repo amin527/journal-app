@@ -1,41 +1,52 @@
 .nav-bar {
     display: flex;
-    background-color: black;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
     position: relative;
-    padding: 20px 0px;
+    padding: 16px 0px;
     height: 9%;
+    min-height: 64px;
     align-items: center;
     box-sizing: border-box;
 }
 
 /* button */
 .nav-bar .button {
-    display: inline-block;
-    background-color: white;
-    padding: 7px 10px 8px;
-    font-size: 1em;
-    border: 1px solid black;
-    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 18px;
+    font: inherit;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text);
+    background-color: transparent;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
     margin-left: auto;
-    margin-right: 20px;
+    margin-right: 24px;
     cursor: pointer;
     text-decoration: none;
-    font-weight: bold;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
 }
 
 .nav-bar #home-page.button {
     margin-left: auto;
-    margin-right: 20px;
+    margin-right: 24px;
 }
 
 .nav-bar #sign-in-page.button {
-    margin-left: 20px;
+    margin-left: 24px;
 }
 
 .nav-bar .button:hover {
-    display: inline-block;
-    background-color: var(--accent-color);
-    color: white;
+    background-color: var(--color-accent-soft);
+    border-color: rgba(47, 75, 124, 0.35);
+}
+
+.nav-bar .button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
 }
 
 /* title */
@@ -45,8 +56,70 @@
     left: 50%;
     transform: translate(-50%, -50%);
     display: inline-block;
-    color: white;
-    font-weight: bold;
-    font-size: xx-large;
-    line-height: 2;
+    color: var(--color-text);
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    font-size: 1.375rem;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+}
+
+.nav-bar--app {
+    justify-content: space-between;
+    min-height: 56px;
+    padding: 0 16px 0 20px;
+    background-color: var(--color-surface);
+}
+
+.app-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-text);
+}
+
+.app-brand-icon {
+    font-size: 1.25rem;
+    color: var(--color-accent);
+}
+
+.app-brand-name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.1875rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+.app-logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+    padding: 0 12px;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+
+.app-logout:hover {
+    color: var(--color-text);
+    background-color: var(--color-hover);
+}
+
+.app-logout:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-bar .button,
+    .app-logout {
+        transition: none;
+    }
 }

@@ -2,6 +2,7 @@ import "./Landing.css"
 import JournalPane from "../../components/JournalPane/JournalPane";
 import TopNavbar from "../../components/TopNavbar/TopNavbar";
 import JournalsSidePanel from "../../components/JournalsSidePanel/JournalsSidePanel";
+import WelcomeHero from "../../components/WelcomeHero/WelcomeHero";
 import { createContext, useState, useContext } from "react";
 import { AuthorisationContext } from "../../App"
 
@@ -12,7 +13,7 @@ function Landing() {
     const { isAuthorised } = useContext(AuthorisationContext)
 
     return (
-        <div className="home-page">
+        <div className={isAuthorised ? "home-page" : "home-page home-page--guest"}>
             <TopNavbar location="home"></TopNavbar>
             {isAuthorised ?
             <div className="home-content-container">
@@ -22,7 +23,7 @@ function Landing() {
                 </ActiveJournalContext.Provider>
             </div>
             :
-            <div className="home-warning-message">You need to log in</div>}
+            <WelcomeHero></WelcomeHero>}
         </div>
     )
 }

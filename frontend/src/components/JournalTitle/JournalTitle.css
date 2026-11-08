@@ -1,71 +1,211 @@
-.journal-container {
-    padding: 15px 6%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-    font-weight: bold;
-    width: 100%;
-    box-sizing: border-box;
-}
-.journal-container.active,
-.journal-container.inactive {
-    cursor: pointer;
-}
-.journal-container.inactive:hover {
-    background-color: var(--accent-color);
-}
-
-.journal-container.active {
-    background-color: black;
-    color: white;
-}
-
-/* input field */
-.journal-container .input-field-container{
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-}
-.journal-container .input-field{
-    box-sizing: border-box;
-    width: 79%;
-}
-.journal-container .button{
-    background-color: var(--accent-color);
-    cursor: pointer;
-    display: inline-block;
-    padding: 5px 10px;
-    margin-right: 3%;
-    color: rgb(29, 29, 29);
-    font-weight: bold;
-    text-align: center;
-}
-.journal-container .button:hover{
-    background-color: black;
-    color: white;
-}
-
-
-/* context menu */
-.chat-panel .context-menu {
-    position: absolute;
-    background-color: white;
-    padding: 6px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    z-index: 100;
-    border-radius: 8px;
-    text-align: left;
-}
-.chat-panel .context-menu .menu-action {
-    padding: 8px 10px;
-    cursor: pointer;
-    border-radius: 5px;
+.journal-item {
+    position: relative;
     display: flex;
     align-items: center;
-    color: rgb(29, 29, 29);
-}
-.chat-panel .context-menu .menu-action-name {
-    margin-left:10px;
-}
-.chat-panel .context-menu .menu-action:hover {
-    background-color: var(--accent-color);
+    margin-bottom: 2px;
+    border-radius: 8px;
+    color: var(--color-text);
+    transition: background-color 150ms ease-out;
 }
 
+.journal-item:hover {
+    background-color: var(--color-hover);
+}
+
+.journal-item.active {
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
+}
+
+.journal-select {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 40px;
+    padding: 0 12px;
+    font: inherit;
+    font-size: 0.9375rem;
+    color: inherit;
+    text-align: left;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.journal-item.active .journal-select {
+    font-weight: 600;
+}
+
+.journal-icon {
+    flex-shrink: 0;
+    font-size: 1.05rem;
+    opacity: 0.7;
+}
+
+.journal-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.journal-more {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    margin-right: 6px;
+    padding: 0;
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    background: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 150ms ease-out, background-color 150ms ease-out;
+}
+
+.journal-item:hover .journal-more,
+.journal-item.active .journal-more,
+.journal-more:focus-visible,
+.journal-more[aria-expanded="true"] {
+    opacity: 1;
+}
+
+.journal-more:hover {
+    background-color: var(--color-hover-strong);
+    color: var(--color-text);
+}
+
+.journal-select:focus-visible,
+.journal-more:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
+}
+
+@media (hover: none) {
+    .journal-more {
+        opacity: 1;
+    }
+}
+
+.journal-item.editing {
+    padding: 8px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+}
+
+.journal-rename-input {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    font: inherit;
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-accent);
+    border-radius: 6px;
+    box-shadow: 0 0 0 3px var(--color-accent-soft);
+    outline: none;
+}
+
+.journal-rename {
+    width: 100%;
+}
+
+.journal-rename-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.text-button {
+    min-height: 32px;
+    padding: 0 12px;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    background: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.text-button:hover {
+    color: var(--color-text);
+    background-color: var(--color-hover);
+}
+
+.text-button.primary {
+    color: var(--color-on-accent);
+    background-color: var(--color-accent);
+}
+
+.text-button.primary:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.text-button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.context-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 4px;
+    z-index: 100;
+    min-width: 160px;
+    padding: 4px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    box-shadow: var(--shadow-md);
+}
+
+.menu-action {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 36px;
+    padding: 0 10px;
+    font: inherit;
+    font-size: 0.875rem;
+    color: var(--color-text);
+    text-align: left;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.menu-action:hover,
+.menu-action:focus-visible {
+    background-color: var(--color-accent-soft);
+    outline: none;
+}
+
+.menu-action.danger {
+    color: var(--color-danger);
+}
+
+.menu-action.danger:hover,
+.menu-action.danger:focus-visible {
+    background-color: var(--color-danger-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .journal-item,
+    .journal-more {
+        transition: none;
+    }
+}
